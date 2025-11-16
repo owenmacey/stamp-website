@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>Stamp Board</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
@@ -16,11 +16,26 @@
       <button id="loginBtn">Log in with Google</button>
     </div>
 
+    <div id="profile">
+      <span><strong>Your stamp settings:</strong></span>
+      <div>
+        <label for="stampName">Name:</label>
+        <input id="stampName" type="text" placeholder="Your name on the stamp" />
+      </div>
+      <div>
+        <label for="stampColor">Colour:</label>
+        <input id="stampColor" type="color" value="#e53935" />
+      </div>
+      <span id="profileHint">
+        (Log in to place or move your stamp. Click the board to update.)
+      </span>
+    </div>
+
     <div id="board-wrapper">
       <div id="board"></div>
       <div id="hint">
-        Log in, then click anywhere on the board to place a stamp.  
-        Hover a stamp to see who placed it and when.
+        Anyone can see the board. Log in, set your name/colour, then click anywhere to place or move your stamp.<br />
+        Hover over a stamp to see who it belongs to and when it was last updated.
       </div>
     </div>
 
@@ -29,7 +44,7 @@
     </div>
   </div>
 
-  <!-- Firebase + app code -->
-  <script src="script.js" type="module"></script>
+  <!-- Firebase SDKs from CDN -->
+  <script type="module" src="script.js"></script>
 </body>
 </html>
