@@ -25,12 +25,13 @@ import {
 
 // --------- 2. Your Firebase config (REPLACE THIS) ---------
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBeLXkIG-4eah04jytQqewxeAqFVfHPkYg",
+  authDomain: "stamp-project-5d221.firebaseapp.com",
+  projectId: "stamp-project-5d221",
+  storageBucket: "stamp-project-5d221.firebasestorage.app",
+  messagingSenderId: "953444275310",
+  appId: "1:953444275310:web:6ad89654c3a7ebe918427f",
+  measurementId: "G-3H6G0ND5HV"
 };
 
 // --------- 3. Initialize Firebase ---------
