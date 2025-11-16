@@ -10,7 +10,10 @@ import {
   serverTimestamp,
   query,
   orderBy,
-  onSnapshot
+  onSnapshot,
+  where,
+  getDocs,
+  deleteDoc
 } from 'https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js';
 import {
   getAuth,
@@ -79,7 +82,7 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-// --------- 6. Firestore: create/update YOUR stamp ---------
+// --------- 6. Firestore: ensure ONE stamp per user ---------
 async function upsertMyStamp(x, y) {
   if (!currentUser) {
     alert('Please log in to place or move your stamp.');
@@ -87,7 +90,7 @@ async function upsertMyStamp(x, y) {
   }
 
   const userId = currentUser.uid;
-  const stampRef = doc(db, 'stamps', userId);
+  const stampsCol = collection(db, 'stamps');
 
   const name =
     (stampNameInput.value || '').trim() ||
@@ -97,8 +100,30 @@ async function upsertMyStamp(x, y) {
 
   const color = stampColorInput.value || '#e53935';
 
+  // 1) Find existing stamps for this user
+  const existingQuery = query(stampsCol, where('userId', '==', userId));
+  const existingSnap = await getDocs(existingQuery);
+
+  let targetRef;
+
+  if (!existingSnap.empty) {
+    // Use the first one as the "official" stamp
+    const [firstDoc, ...rest] = existingSnap.docs;
+    targetRef = firstDoc.ref;
+
+    // Delete any extra stamps for this user (cleanup)
+    const deletions = rest.map(docSnap => deleteDoc(docSnap.ref));
+    if (deletions.length > 0) {
+      await Promise.all(deletions);
+    }
+  } else {
+    // No existing stamp: create a brand new one
+    targetRef = doc(stampsCol); // random id is fine
+  }
+
+  // 2) Create or update the chosen stamp document
   await setDoc(
-    stampRef,
+    targetRef,
     {
       userId,
       name,
