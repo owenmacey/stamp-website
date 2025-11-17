@@ -78,7 +78,7 @@ onAuthStateChanged(auth, (user) => {
       stampNameInput.value = name;
     }
   } else {
-    statusEl.textContent = 'Not logged in (you can still view the board)';
+    statusEl.textContent = 'Not logged in';
     loginBtn.textContent = 'Log in with Google';
   }
 });
